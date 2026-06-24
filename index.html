@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Save to PDF Website</title>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 600px;
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: #333;
+        }
+        textarea {
+            width: 100%;
+            height: 150px;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            resize: vertical;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="pdf-content">
+        <h2>My PDF Document</h2>
+        <p>Type your content below, and it will be saved inside the generated PDF file.</p>
+        <textarea id="user-text" placeholder="Write something here..."></textarea>
+    </div>
+
+    <button onclick="downloadPDF()">Download as PDF</button>
+
+    <script>
+        function downloadPDF() {
+            // Get the element that you want to convert to PDF
+            const element = document.getElementById('pdf-content');
+            
+            // Get the value from textarea to ensure it locks into the PDF view
+            const textareaValue = document.getElementById('user-text').value;
+            
+            // Optional: Options for configuring the PDF output
+            const options = {
+                margin:       10,
+                filename:     'my_document.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2 },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            // Generate and download the PDF
+            html2pdf().set(options).from(element).save();
+        }
+    </script>
+
+</body>
+</html>
